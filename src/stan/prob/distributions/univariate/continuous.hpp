@@ -11,6 +11,7 @@
 #include <stan/prob/distributions/univariate/continuous/gumbel.hpp>
 #include <stan/prob/distributions/univariate/continuous/inv_chi_square.hpp>
 #include <stan/prob/distributions/univariate/continuous/inv_gamma.hpp>
+#include <stan/prob/distributions/univariate/continuous/inv_weibull.hpp>
 #include <stan/prob/distributions/univariate/continuous/logistic.hpp>
 #include <stan/prob/distributions/univariate/continuous/lognormal.hpp>
 #include <stan/prob/distributions/univariate/continuous/normal.hpp>

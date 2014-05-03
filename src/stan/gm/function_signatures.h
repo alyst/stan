@@ -373,6 +373,23 @@ add_binary("inv_gamma_rng");
 add_unary("inv_logit");
 add_unary("inv_sqrt");
 add_unary("inv_square");
+for (size_t i = 0; i < vector_types.size(); ++i)
+  for (size_t j = 0; j < vector_types.size(); ++j)
+    for (size_t k = 0; k < vector_types.size(); ++k) {
+        add("inv_weibull_ccdf_log",
+            DOUBLE_T, // result
+            vector_types[i], vector_types[j], vector_types[k]); // args
+        add("inv_weibull_cdf",
+            DOUBLE_T, // result
+            vector_types[i], vector_types[j], vector_types[k]); // args
+        add("inv_weibull_cdf_log",
+            DOUBLE_T, // result
+            vector_types[i], vector_types[j], vector_types[k]); // args
+        add("inv_weibull_log",
+            DOUBLE_T, // result
+            vector_types[i], vector_types[j], vector_types[k]); // args
+    }
+add_binary("weibull_rng");
 add("inv_wishart_log",DOUBLE_T, MATRIX_T,DOUBLE_T,MATRIX_T);
 add("inv_wishart_rng",MATRIX_T,DOUBLE_T,MATRIX_T);
 add("inverse",MATRIX_T,MATRIX_T);
