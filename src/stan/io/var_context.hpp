@@ -150,7 +150,7 @@ namespace stan {
         std::vector<size_t> dims = dims_r(name);
         if (dims.size() != dims_declared.size()) {
           std::stringstream msg;
-          msg << "mismatch in number dimensions declared and found in context"
+          msg << "declared and actual dimensions do not match"
               << "; processing stage=" << stage
               << "; variable name=" << name
               << "; dims declared=";
@@ -162,7 +162,7 @@ namespace stan {
         for (size_t i = 0; i < dims.size(); ++i) {
           if (dims_declared[i] != dims[i]) {
             std::stringstream msg;
-            msg << "mismatch in dimension declared and found in context"
+            msg << "declared and actual dimensions do not match"
                 << "; processing stage=" << stage
                 << "; variable name=" << name
                 << "; position="
