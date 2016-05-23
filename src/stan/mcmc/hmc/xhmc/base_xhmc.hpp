@@ -60,11 +60,16 @@ namespace stan {
     public:
       base_xhmc(const Model& model, BaseRNG& rng)
         : base_hmc<Model, Hamiltonian, Integrator, BaseRNG>(model, rng),
-          depth_(0), max_depth_(5), max_deltaH_(1000), x_delta_(0.1),
+          depth_(0), min_depth_(0), max_depth_(5), max_deltaH_(1000), x_delta_(0.1),
           n_leapfrog_(0), divergent_(0), energy_(0) {
       }
 
       ~base_xhmc() {}
+
+      void set_min_depth(int d) {
+        if (d > 0)
+          min_depth_ = d;
+      }
 
       void set_max_depth(int d) {
         if (d > 0)
@@ -80,6 +85,7 @@ namespace stan {
         x_delta_ = d;
       }
 
+      int get_min_depth() { return this->min_depth_; }
       int get_max_depth() { return this->max_depth_; }
       double get_max_deltaH() { return this->max_deltaH_; }
       double get_x_delta() { return this->x_delta_; }
@@ -153,7 +159,8 @@ namespace stan {
             z_sample = z_propose;
 
             // Break if exhaustion criterion is satisfied
-            if (std::fabs(ave) < x_delta_)
+            if (this->depth_ >= this->min_depth_
+                && std::fabs(ave) < x_delta_)
               break;
         }
 
@@ -286,6 +293,7 @@ namespace stan {
       }
 
       int depth_;
+      int min_depth_;
       int max_depth_;
       double max_deltaH_;
       double x_delta_;

@@ -35,11 +35,16 @@ namespace stan {
     public:
       base_nuts_classic(const Model& model, BaseRNG& rng):
         base_hmc<Model, Hamiltonian, Integrator, BaseRNG>(model, rng),
-        depth_(0), max_depth_(5), max_delta_(1000),
+        depth_(0), min_depth_(0), max_depth_(5), max_delta_(1000),
         n_leapfrog_(0), divergent_(0), energy_(0) {
       }
 
       ~base_nuts_classic() {}
+
+      void set_min_depth(int d) {
+        if (d > 0)
+          min_depth_ = d;
+      }
 
       void set_max_depth(int d) {
         if (d > 0)
@@ -50,6 +55,7 @@ namespace stan {
         max_delta_ = d;
       }
 
+      int get_min_depth() { return this->min_depth_; }
       int get_max_depth() { return this->max_depth_; }
       double get_max_delta() { return this->max_delta_; }
 
@@ -119,7 +125,7 @@ namespace stan {
           *z = this->z_;
 
           // Metropolis-Hastings sample the fresh subtree
-          if (!util.criterion)
+          if (!util.criterion && depth_ >= this.min_depth_)
             break;
 
           double subtree_prob = 0;
@@ -241,6 +247,7 @@ namespace stan {
       }
 
       int depth_;
+      int min_depth_;
       int max_depth_;
       double max_delta_;
 

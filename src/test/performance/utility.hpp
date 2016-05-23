@@ -46,6 +46,7 @@
 #include <stan/services/arguments/arg_int_time.hpp>
 #include <stan/services/arguments/arg_iter.hpp>
 #include <stan/services/arguments/arg_lbfgs.hpp>
+#include <stan/services/arguments/arg_min_depth.hpp>
 #include <stan/services/arguments/arg_max_depth.hpp>
 #include <stan/services/arguments/arg_method.hpp>
 #include <stan/services/arguments/arg_metric.hpp>
@@ -432,6 +433,7 @@ namespace stan {
         sampler_ptr = new sampler(model, base_rng);
         sampler_ptr->set_nominal_stepsize(1.0);
         sampler_ptr->set_stepsize_jitter(0.0);
+        sampler_ptr->set_min_depth(0);
         sampler_ptr->set_max_depth(10);
 
         stan::services::sample::init_adapt(sampler_ptr, 0.8, 0.05, 0.75, 10,

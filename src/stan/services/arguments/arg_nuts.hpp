@@ -2,6 +2,7 @@
 #define STAN_SERVICES_ARGUMENTS_ARG_NUTS_HPP
 
 #include <stan/services/arguments/categorical_argument.hpp>
+#include <stan/services/arguments/arg_min_depth.hpp>
 #include <stan/services/arguments/arg_max_depth.hpp>
 
 namespace stan {
@@ -13,6 +14,7 @@ namespace stan {
         _name = "nuts";
         _description = "The No-U-Turn Sampler";
 
+        _subarguments.push_back(new arg_min_depth());
         _subarguments.push_back(new arg_max_depth());
       }
     };

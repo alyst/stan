@@ -28,12 +28,16 @@ namespace stan {
           = dynamic_cast<stan::services::real_argument*>(
                                                  hmc->arg("stepsize_jitter"))
           ->value();
+        int min_depth
+          = dynamic_cast<stan::services::int_argument*>(base->arg("min_depth"))
+          ->value();
         int max_depth
           = dynamic_cast<stan::services::int_argument*>(base->arg("max_depth"))
           ->value();
 
         dynamic_cast<Sampler*>(sampler)->set_nominal_stepsize(epsilon);
         dynamic_cast<Sampler*>(sampler)->set_stepsize_jitter(epsilon_jitter);
+        dynamic_cast<Sampler*>(sampler)->set_min_depth(min_depth);
         dynamic_cast<Sampler*>(sampler)->set_max_depth(max_depth);
 
         return true;
